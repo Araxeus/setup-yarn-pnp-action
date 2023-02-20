@@ -1,2 +1,3 @@
-# setup yarn pnp action
- GitHub Action to setup Yarn PnP
+# Yarn PnP setup action
+
+Currently experimental
