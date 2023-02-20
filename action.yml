@@ -1,0 +1,51 @@
+name: "Yarn PnP Setup"
+description: "Setup Node.js and Yarn for a Yarn PnP project"
+author: "Araxeus"
+
+inputs:
+  node-version:
+    description: "The version of Node.js that will be used"
+
+outputs:
+  cache-hit:
+    description: "Indicates a cache hit"
+    value: ${{ steps.cache.outputs.cache-hit }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Get NodeJS version
+      id: node-version
+      run: |
+        V_INPUT=${{ inputs.node_version }}
+        echo "version=${V_INPUT:-"latest"}" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Setup NodeJS
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ steps.node-version.outputs.version}}
+
+    - name: Install Yarn
+      run: corepack enable && corepack prepare yarn@stable --activate
+      shell: bash
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+      shell: bash
+
+    - name: Cache dependencies
+      id: cache
+      uses: actions/cache@v3
+      with:
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: ${{ runner.os }}-yarn--
+
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile
+      shell: bash
