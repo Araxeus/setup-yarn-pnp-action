@@ -50,5 +50,5 @@ runs:
         restore-keys: ${{ runner.os }}-yarn--
 
     - name: Install dependencies
-      run: yarn install --frozen-lockfile
+      run: yarn install --immutable
       shell: bash
