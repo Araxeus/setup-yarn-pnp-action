@@ -23,7 +23,7 @@ runs:
     - name: Get NodeJS version
       id: node-version
       run: |
-        V_INPUT=${{ inputs.node_version }}
+        V_INPUT=${{ inputs.node-version }}
         echo "version=${V_INPUT:-"latest"}" >> $GITHUB_OUTPUT
       shell: bash
 
