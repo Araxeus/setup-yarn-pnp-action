@@ -28,7 +28,7 @@ runs:
       shell: bash
 
     - name: Setup NodeJS
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ steps.node-version.outputs.version}}
 
