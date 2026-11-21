@@ -18,7 +18,7 @@ runs:
   using: "composite"
   steps:
     - name: Checkout
-      uses: actions/checkout@v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
     - name: Get NodeJS version
       id: node-version
@@ -28,7 +28,7 @@ runs:
       shell: bash
 
     - name: Setup NodeJS
-      uses: actions/setup-node@v7
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
       with:
         node-version: ${{ steps.node-version.outputs.version}}
 
@@ -43,7 +43,7 @@ runs:
 
     - name: Cache dependencies
       id: cache
-      uses: actions/cache@v6
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
       with:
         path: ${{ steps.yarn-cache-path.outputs.cache }}
         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
